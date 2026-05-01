@@ -6,7 +6,7 @@ app.use(express.json());
 app.use(express.static(__dirname));
 
 // 🔑 TU API KEY DE PIXABAY
-const API_KEY = "TU_API_KEY_AQUI";
+const API_KEY = "41023169-4ecf3a9fabae7d25d2fe6cb69"
 
 // 💰 LINK DE VENTA
 const LINK_VENTA = "https://tulink.com";
