@@ -1,0 +1,83 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Video Generator 2</title>
+
+  <style>
+    body {
+      background: #111;
+      color: white;
+      font-family: Arial;
+      text-align: center;
+      padding: 30px;
+    }
+
+    input {
+      padding: 10px;
+      width: 250px;
+      margin-top: 10px;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin-top: 10px;
+      background: blue;
+      color: white;
+      border: none;
+      cursor: pointer;
+    }
+
+    video {
+      width: 300px;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>🔥 Generador de Videos 2</h1>
+
+  <input id="nicho" placeholder="dinero, fitness, lujo">
+  <br>
+  <button onclick="generar()">Generar</button>
+
+  <div id="out"></div>
+
+  <script>
+    async function generar() {
+      const nicho = document.getElementById("nicho").value;
+
+      const res = await fetch("/generar", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ nicho })
+      });
+
+      const data = await res.json();
+
+      let html = `<h3>${data.mensaje}</h3>`;
+
+      data.videos.forEach(v => {
+        html += `
+          <video controls src="${v}"></video>
+        `;
+      });
+
+      html += `
+        <br><br>
+        <a href="${data.link}" target="_blank">
+          💰 Ir a la oferta
+        </a>
+      `;
+
+      document.getElementById("out").innerHTML = html;
+    }
+  </script>
+
+</body>
+</html>
